@@ -56,15 +56,23 @@ app.post('/collaborators', (req, res) => {
   collaborators.push(newCollaborator);
   res.status(201).json(newCollaborator);
 });
-app.delete('/colaboradores/:id', (req, res) => {
+
+// Endpoint para excluir um colaborador
+// Endpoint para excluir um colaborador
+app.delete('/collaborators/:id', (req, res) => {
   const { id } = req.params;
-  // lógica para encontrar e excluir o colaborador com o id fornecido
-  const collaboratorIndex = colaboradores.findIndex(collaborator => collaborator.id === parseInt(id));
+  // Lógica para encontrar e excluir o colaborador com o ID fornecido
+  const collaboratorIndex = collaborators.findIndex(collaborator => collaborator.id === parseInt(id));
+  
   if (collaboratorIndex !== -1) {
-    colaboradores.splice(collaboratorIndex, 1); // remove o colaborador
-    res.status(204).send(); // no content
+    const removedCollaborator = collaborators.splice(collaboratorIndex, 1); // Remove o colaborador
+    
+    // Aqui você pode adicionar qualquer lógica adicional se necessário
+    // Por exemplo, você pode armazenar em um log ou realizar outras ações
+
+    res.status(204).send(); // No content
   } else {
-    res.status(404).send({ message: 'Colaborador não encontrado' }); // não encontrado
+    res.status(404).send({ message: 'Colaborador não encontrado' }); // Não encontrado
   }
 });
 
