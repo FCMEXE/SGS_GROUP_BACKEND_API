@@ -5,6 +5,41 @@ const cron = require('node-cron');
 const app = express();
 const PORT = 3000;
 
+//Endpoint para Registrar um Ponto
+app.post('/pontos', async (req, res) => {
+  const { userId, day, entryTime, exitTime, lunchStart, lunchEnd } = req.body;
+
+  try {
+    const novoPonto = await Ponto.create({
+      userId,
+      day,
+      entryTime,
+      exitTime,
+      lunchStart,
+      lunchEnd
+    });
+    res.status(201).json(novoPonto);
+  } catch (error) {
+    console.error('Erro ao adicionar ponto:', error);
+    res.status(500).json({ message: 'Erro ao adicionar ponto' });
+  }
+});
+
+//Endpoint para Obter Pontos de um Usuário
+app.get('/pontos/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const pontos = await Ponto.findAll({ where: { userId } });
+    res.json(pontos);
+  } catch (error) {
+    console.error('Erro ao obter pontos:', error);
+    res.status(500).json({ message: 'Erro ao obter pontos' });
+  }
+});
+
+
+
 app.use(bodyParser.json());
 
 // Mock de colaboradores para fins de exemplo
