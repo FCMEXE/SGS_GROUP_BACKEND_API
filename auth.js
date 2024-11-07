@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 const users = [
   { id: 1, username: "user1", password: "senha123", role: "admin" },
   { id: 2, username: "user2", password: "senha321", role: "colaborador" },
-  { id: 3, username: "user3", password: "senha123", role: "admin" }
 ];
 
 // Endpoint de login para autenticação e geração do token
